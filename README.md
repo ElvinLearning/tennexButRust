@@ -1,3 +1,25 @@
+why is rust important
+
+For this project, honestly, Rust doesn't matter much. The server mostly forwards text from a model to the browser and waits on the network, and Node handles that fine. The 3D office, voice and monitors run in the browser as JavaScript either way, so most of the app didn't change.
+
+What Rust did get you here:
+
+- One file to run. cargo build --release gives you a single tennex binary. No node_modules and no Node install, so it's easy to copy to another machine or a server.
+- Low resource use. It idles at a few MB of memory and starts instantly. That's nice on a laptop or a cheap VPS, but you won't notice it with one player.
+- Errors caught early. The compiler forces every failure path to be handled, like a bad request, an unreachable provider or a dropped stream. That fits the spec's "errors show as a readable message, never a blank screen."
+- Cancellation comes for free. When the player walks away mid-reply, the request to the model is dropped automatically, with no cleanup code to forget. That's the spec's cost rule, and a test covers it.
+
+The costs:
+
+- Slower to change. Builds take minutes (the release build took about 5 here), versus instant reloads with Vite.
+- Two languages. You now have Rust for the sclient, where the Node version was JavaScript throughout.
+
+Where Rust in general really shines is where matter most: browsers, operating systems,game engines, databases, embedded devices, and high-traffic servers. It's as fast as C/C++, but the compiler rules out whole classes of bugs, like crashes from bad between threads.
+
+
+
+
+
 # Tennex Office (Rust)
 
 A 3D office in the browser where you walk around in first person, watch five AI agents work at their desks, look over their shoulders at their monitors, and give them tasks by voice or text. The full spec is in [docs/SPEC.md](docs/SPEC.md).
