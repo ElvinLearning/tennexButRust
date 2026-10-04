@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tennex Office</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>" />
+  <link rel="stylesheet" href="/style.css" />
+  <script type="importmap">{ "imports": { "three": "/vendor/three.module.js" } }</script>
+</head>
+<body>
+  <canvas id="scene"></canvas>
+
+  <!-- HUD -->
+  <div id="hud" hidden>
+    <div id="crosshair"></div>
+    <div id="hint"></div>
+    <div id="caption" hidden></div>
+    <div id="feed"></div>
+    <div id="mode-badge"></div>
+  </div>
+  <div id="toasts"></div>
+
+  <!-- Start screen -->
+  <section id="start" class="overlay">
+    <div class="card">
+      <h1>Tennex Office</h1>
+      <p class="lede">Walk around, watch five AI agents work, look over their shoulders and give them tasks by voice or text.</p>
+      <div class="team" id="start-team"></div>
+      <ul class="keys">
+        <li><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> move · <kbd>Shift</kbd> sprint · mouse to look</li>
+        <li>Walk up to someone, then <b>hold <kbd>V</kbd></b> and talk, or press <kbd>Enter</kbd> to type</li>
+        <li>Start with a name to pick who hears you: “Critic, review this” · “team, standup”</li>
+        <li><kbd>F</kbd> look at their monitor · <kbd>C</kbd> copy the full text · <kbd>Esc</kbd> pause and pick models</li>
+      </ul>
+      <button id="enter" class="primary">Enter the office</button>
+      <p id="start-status" class="muted"></p>
+    </div>
+  </section>
+
+  <!-- Pause screen -->
+  <section id="pause" class="overlay" hidden>
+    <div class="card wide">
+      <h2>Paused</h2>
+      <p id="pause-status" class="muted"></p>
+      <table class="roster">
+        <thead><tr><th>Agent</th><th>Role</th><th>Model</th></tr></thead>
+        <tbody id="roster"></tbody>
+        <tfoot><tr><td><b>Everyone</b></td><td class="muted">set all at once</td><td><select id="model-all"></select></td></tr></tfoot>
+      </table>
+      <div class="brief-row"><b>Brief:</b> <span id="pause-brief" class="muted"></span></div>
+      <label class="check"><input type="checkbox" id="mute" /> Mute agent voices</label>
+      <div class="row">
+        <button id="resume" class="primary">Resume</button>
+      </div>
+      <p class="muted small">Commands (press <kbd>Enter</kbd>): <code>/brief &lt;text&gt;</code> · <code>/brief clear</code> · presets <code>roblox</code> <code>cozy</code> <code>higgsfield</code> <code>wolf</code></p>
+    </div>
+  </section>
+
+  <!-- Click-to-resume (after closing a panel, the browser needs a click to lock the mouse again) -->
+  <section id="click-resume" class="overlay light" hidden>
+    <button class="primary">Click to return to the office</button>
+  </section>
+
+  <!-- Prompt box -->
+  <section id="prompt" hidden>
+    <div id="chips"></div>
+    <div class="input-row">
+      <span id="prompt-target">→ nobody</span>
+      <input id="prompt-input" autocomplete="off" spellcheck="true" placeholder="Ask for something… (@name to pick, Tab to complete, /brief to set the project)" />
+    </div>
+    <div class="muted small">Enter to send · Esc to cancel</div>
+  </section>
+
+  <!-- Full text viewer -->
+  <section id="fulltext" class="overlay" hidden>
+    <div class="card wide">
+      <div class="row between">
+        <h2 id="fulltext-title">Screen</h2>
+        <div class="row">
+          <button id="copy-all" class="primary">Copy all</button>
+          <button id="fulltext-close">Close</button>
+        </div>
+      </div>
+      <textarea id="fulltext-body" readonly spellcheck="false"></textarea>
+    </div>
+  </section>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>
