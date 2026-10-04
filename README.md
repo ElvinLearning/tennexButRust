@@ -1,6 +1,6 @@
-why is rust important
+first rust project so why is rust important at all?
 
-For this project, honestly, Rust doesn't matter much. The server mostly forwards text from a model to the browser and waits on the network, and Node handles that fine. The 3D office, voice and monitors run in the browser as JavaScript either way, so most of the app didn't change.
+For this project Rust doesn't change a lot. The server forwards text from a model to the browser and waits on the network, and Node handles that fine. The 3D office, voice and monitors run in the browser as JavaScript either way, so most of the app didn't change.
 
 What Rust did get you here:
 
